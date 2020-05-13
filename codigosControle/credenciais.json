@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "labensaios",
+  "private_key_id": "9eb641fa3a6007efbb030dfccd92527fccfb697a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDFCKlS+SYIrB9V\nL3blIC0TqJay3sQd9pz+6gBTlAy8NAB3+WyjDV7zYYMKBnQ+LWF1KOBS6zmz3VZv\nUz5V5m8jKJF8iB4MQalWgLdIjFgmJEyG5tYXlsJEHWLz2nv2kU4Kcb8ykHjIq5p3\nkIGJNwkBl4rmCVhDCi9Di1HdHlU7wca5Izm8+kwKP3dx7BqFmLoefEPElXqIo8kf\n0360pu3Pgofd/pDaxU/95QGC4vy3aDMhb3LQP+RdCWSv5Re5Ui2zFOi482/hPqss\nSmyv90VO3F2waghetJeLTnHvPTcgQ2aXKxYzhx2vZmETiJA3wfIOAbUJkAgaowHR\nKxStK8KrAgMBAAECggEAGNoRqAZb6T5zNJvoK63mHEjTOobFhsqlx7NSd42WGPZC\n1DRwzZTF/qhfI629DgtMSRTu98Ef8JNWL8l4nyi8U4YY6kkC5+SE9tpaWSYL3O0O\n0qRyqYau7xzOb9fayIv6+MSbFfDKA0mTEfSh72GH2xxhp8fS9aBnELvAXMWoK4FP\nUa3Dd6eGEpxiZJ2Yg2lhm4+602xv+aP1LJOdzHfJ+zAsn3jYgKP8tSHUiYgejOo5\n9N5NOgMyj184q6VCU7GM5soOh8zTmN9G9XkQS3PhHz0sZSwUKkoaRtrDBp28ZgTe\nl4MXbLhfr4sODxNeeiY99doDR14B6bZ4f0wDRSa1SQKBgQDgpgzqXdGLr2mo52B/\n28+THNhV0V/PWCiB+bhToYoBdDQDH4xO23EoBHvIqGNi62+KFd8s9pi6a6KVSr+D\nJI90zaOeBk7RS9soJYw7BeXlNrn27mOvO3mz1sRyuDhG4SG0mKRVEiAKXoYHaWtE\n/MDTeLEDYrMdwhlGqSD6mnNKuQKBgQDgiAaekZfuMNtxck/cGg8ctKOyD3TDGcXH\n9KDaOyTGkGovdu2ZqZb1B9zCYi6KWNafoKIKkzBrPtPGgXsj1R/cRL4U1KL54YgK\nYbHhZU9X35Mga51+yllpw4GqJnvV5NYpgSaJ+BcawE7TdsYyAqSpVFOIsWt9qAUc\n2NBPevW2gwKBgAocr1wlWPdWsATgVWGr/U378Gj8gbmNmFUxbnClRtcF6glx9Bjg\nm9lXSlMf8UlUm7K1hVQ6zWkmyyy5LqGylZqGXyUP16BoL7dA6W0GuPB2ZCyPUoFi\nxfmoYzNew3m9TI0aidsic7rDwni28BMs5Wkfd6hVWwat5AFgP5HIPgRRAoGANQcr\nOQv9q92SFir/PWZSJ19qQcVwuBtAIMdfrerF9rdovKkD2IS7CEfBFY+Gmln85lpT\nqte0Wb/O2FUANihBjA4YLmdBzm47aOhF0IvSv1goMUH5Qlab42SvHPZVzOBszASa\ni38yRbkhZMPqbyk8plkqGWB9mIG0I2n5WKwbl+0CgYAmIwbcQYTgPjaruvX1xx4d\nfNQa8gNJPoFrpbuaokoIGE/ZxvWq1K7lTVSdfv+5XUrrWH2ZdWdOYHH6QsuayJ8F\nTLYhXZ5ihwZJ4ijmJe7SAG+jDxEjSuCeKngqtxUMuIAmox67kVuKOae4kAZZ1794\nEYCLOBWeETLF10kSjzt69Q==\n-----END PRIVATE KEY-----\n",
+  "client_email": "labensaios@labensaios.iam.gserviceaccount.com",
+  "client_id": "108335569632192586058",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/labensaios%40labensaios.iam.gserviceaccount.com"
+}
