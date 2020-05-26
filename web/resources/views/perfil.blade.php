@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="repassword" class="col-sm-2 control-label">Confiramr senha</label>
+                    <label for="repassword" class="col-sm-2 control-label">Confirmar senha</label>
                     <div class="col-sm-10">
                         <input type="password" class="form-control" id="repassword" name="repassword"
                             placeholder="senha">
@@ -41,7 +41,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <a href="/apagar/{{$user->id}}" class="btn btn-danger pull-left"><i class="fa fa-trash"></i> Remover
+                <a href="user/apagar/{{$user->id}}" class="btn btn-danger pull-left"><i class="fa fa-trash"></i> Remover
                     usuário do sistema</a>
                 <button type="submit" class="btn btn-warning pull-right"><i class="fa fa-save"></i> Alterar</button>
             </div>

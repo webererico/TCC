@@ -33,7 +33,8 @@ Route::get('/config/ambiente/{id}', 'ControllerAmbientes@configAmbiente')->name(
 Route::get('/config/ambiente/{id}', 'ControllerAmbientes@configAmbiente')->name('configuracao.ambiente');
 
 
-Route::get('/desligar/{$id}', 'ControllerAmbientes@desligaArManual')->name('desligaArManual');
+Route::get('/desligar/ar/{$id}', 'ControllerAmbientes@desligaArManual')->name('desligaArManual');
+Route::get('/desligar/umidificador/{$id}', 'ControllerAmbientes@desligarUmidificadro')->name('desligaUmid');
 
 //SALVA
 Route::post('/salvar/{id}', 'ControllerAmbientes@save')->name('salvar');
@@ -41,12 +42,13 @@ Route::post('/criaensaio', 'ControllerAmbientes@createEnsaio')->name('criaensaio
 Route::post('/autoensaio', 'ControllerAmbientes@createEnsaioAuto')-> name('autoensaio');
 Route::post('/perfil', 'HomeController@atualizaPerfil')->name('atulizaPerfil');
 Route::post('/salvar/config/{id}', 'ControllerAmbientes@salvaConfig')->name('salvarConfig');
-Route::post('/controle/{id}', 'ControllerAmbientes@controleManual')->name('ControleManual');
+Route::post('/controle/ar/{id}', 'ControllerAmbientes@controleManualAr')->name('ControleManualAr');
+Route::post('/controle/umid/{id}', 'ControllerAmbientes@controleManualUmid')->name('ControleManualUmid');
 
 //APAGAR
 Route::get('/ensaio/apagar/{id}', 'ControllerAmbientes@apagarEnsaio')->name('apagarEnsaio');
 Route::get('/apagar/{id}', 'ControllerAmbientes@limpaBanco')->name('limpaBanco');
-Route::get('/apagar/{id}', 'ControllerAmbientes@deleteUser')->name('deleteUser');
+Route::get('user/apagar/{id}', 'ControllerAmbientes@deleteUser')->name('deleteUser');
 
 //DOWNLOAD
 route::get('/resgatar/{id}', 'ControllerAmbientes@download')->name('download');

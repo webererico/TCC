@@ -74,7 +74,7 @@
                                 <h4>{{$aLab->minUmid}}%</h4>
                                 <h5 style="text-align: left">SP: {{$lab->spUmid}}%</h5>
                             </div>
-                            @if($aLab->statusUmid == "automatissadasco")
+                            @if($aLab->statusUmid == "automatico")
                             <a class="small-box-footer label label-success"> AUTOMÁTICO </a>
                             @else
                             <a class="small-box-footer label label-warning"> OFF</a>

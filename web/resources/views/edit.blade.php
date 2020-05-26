@@ -73,14 +73,14 @@
         <div class="col-sm-5">
           <div class="row">
             <div class="col-lg-5">
-              <label for="ligarSist">Hora Ativação:</label>
-              <input type="time" class="form-control" name="dataITemp" id="dataITemp" value="{{$dataITemp}}">
+              <label for="ligarSist">Horário de Ativação:</label>
+              <input type="time" class="form-control" name="dataITemp" id="dataITemp" value="{{date('H:i', strtotime($dataITemp))}}">
               {{-- <p>Ultima atualização às {{$estadosUmid->updated_at->format('H:i:s')}}</p> --}}
             </div>
 
             <div class="col-lg-5">
-              <label for="ligarSist">Hora Desativação :</label>
-            <input type="time" class="form-control" name="dataFTemp" id="dataFTemp" value="{{$dataFTemp}}">
+              <label for="ligarSist">Horário de Desativação :</label>
+            <input type="time" class="form-control" name="dataFTemp" id="dataFTemp" value="{{date('H:i', strtotime($dataFTemp))}}">
             </div>
           </div>
           <br>
@@ -108,13 +108,13 @@
           <div class="col-sm-6">
             <div class="row">
               <div class="col-lg-5">
-                <label for="ligarSist">Hora Ativação:</label>
-                <input type="time" class="form-control" name="dataIUmid" id="dataIUmid" value="{{$dataIUmid}}">
+                <label for="ligarSist">Horário de Ativação:</label>
+                <input type="time" class="form-control" name="dataIUmid" id="dataIUmid" value="{{date('H:i', strtotime($dataIUmid))}}">
               </div>
 
               <div class="col-lg-5">
-                <label for="ligarSist">Hora Desativação :</label>
-                <input type="time" class="form-control" name="dataFUmid" id="dataFUmid" value="{{$dataFUmid}}">
+                <label for="ligarSist">Horário de Desativação :</label>
+                <input type="time" class="form-control" name="dataFUmid" id="dataFUmid" value="{{date('H:i', strtotime($dataFUmid))}}">
               </div>
             </div>
             <br>
@@ -148,12 +148,12 @@
 @endif
 @if($dados->status == "manual")
 <div class="box box-warning direct-chat direct-chat-warning">
-  <form method="post" action="/controle/{{$estados->id}}" class="form-horizontal">
+  <form method="post" action="/controle/ar/{{$estados->id}}" class="form-horizontal">
     @csrf
     <div class="box-header with-border">
       <h3 class="box-title">Controle manual condicionador de ar
         @if($estados->status =='ligado')
-        <a href="/desligar/{{$estados->id}}" class="btn btn-danger"><i class="fa fa-power-off"></i> Desligar</a>
+        <a href="/desligar/ar/{{$estados->id}}" class="btn btn-danger"><i class="fa fa-power-off"></i> Desligar</a>
         @endif
       </h3>
     </div>
@@ -173,7 +173,7 @@
             <option selected value="{{$estados->modo}}">Selecione o modo de operação</option>
             <option value="resfriamento">resfriamento</option>
             <option value="aquecimento">aquecimento</option>
-            <option value="desumidificar">desumidificar</option>
+            {{-- <option value="desumidificar">desumidificar</option> --}}
           </select>
         </div>
         <div class="col-md-3">
@@ -189,7 +189,7 @@
         <div class="col-md-3">
           @if(isset($estados->updated_at))
           <p>Ultima atualização às {{$estados->updated_at->format('H:i:s d-m-Y')}}</p>
-
+          <p>Modo: {{$estados->modo}}, Temperatura: {{$estados->temp}}</p>
           @endif
         </div>
       </div>
@@ -200,12 +200,12 @@
 @endif
 @if($dados->statusUmid == "manual")
 <div class="box box-warning direct-chat direct-chat-warning">
-  <form method="post" action="/controle/{{$estadosUmid->id}}" class="form-horizontal">
+  <form method="post" action="/controle/umid/{{($estados->id+1)}}" class="form-horizontal">
     @csrf
     <div class="box-header with-border">
       <h3 class="box-title">Controle manual umidificador/desumidificador
         @if($estadosUmid->status=='ligado')
-        <a href="/desligar/{{$estadosUmid->id}}" class="btn btn-danger"><i class="fa fa-power-off"></i> Desligar</a>
+        <a href="/desligar/umidificador/{{$estados->id}}" class="btn btn-danger"><i class="fa fa-power-off"></i> Desligar</a>
         @endif
       </h3>
     </div>
@@ -240,7 +240,7 @@
         </div>
         <div class="col-md-3">
           @if(isset($estadosUmid->updated_at))
-          <p>Ultima atualização às {{$estadosUmid->updated_at->format('H:i:s')}}</p>
+          <p>Última atualização às {{$estadosUmid->updated_at->format('H:i:s')}}</p>
           <p>Data: {{$estadosUmid->updated_at->format('d-m-Y')}}</p>
           @endif
         </div>
