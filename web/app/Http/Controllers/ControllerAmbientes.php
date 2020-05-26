@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Exports\ensaioExports;
 use App\Exports\ensaioFromView;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\ambiente;
@@ -33,14 +34,10 @@ class ControllerAmbientes extends Controller
         $dados = ambiente::where('id', $id)->first();
         $estados = estados::where('id_ambiente', $id)->first();
         $estadosUmid = estados::where('id_ambiente', $id)->get()->last();
-        $time = $timestamp = strtotime($dados->startTemp);
-        $dataITemp = date('G:i', $time);
-        $time1 = $timestamp = strtotime($dados->stopTemp);
-        $dataFTemp = date('G:i', $time1);
-        $time2 = $timestamp = strtotime($dados->startUmid);
-        $dataIUmid = date('G:i', $time2);
-        $time3 = $timestamp = strtotime($dados->stopUmid);
-        $dataFUmid = date('G:i', $time3);
+        $dataITemp = ($dados->startTemp);
+        $dataFTemp = ($dados->stopTemp);
+        $dataIUmid = ($dados->startUmid);
+        $dataFUmid = ($dados->stopUmid);
         $id_user = Auth::user()->id;
         $alerta = alerta::where('id_ambiente', $id)->where('id_user', $id_user)->first();
         if (!isset($alerta)) {
@@ -61,6 +58,10 @@ class ControllerAmbientes extends Controller
     public function deleteUser($id)
     {
         $user = User::find($id);
+        $alerta = alerta::where('id_user', $id);
+        if(isset($alerta)){
+            $alerta->delete();
+        }
         $user->delete();
         return redirect('/home');
     }
@@ -93,20 +94,12 @@ class ControllerAmbientes extends Controller
             $data = date('Y-m-d H:i:s', strtotime($request->input('dataITemp')));
             $dados->startTemp = $data ;
             $data = date('Y-m-d H:i:s', strtotime($request->input('dataFTemp')));
+
             $dados->stopTemp = $data ;
             $data = date('Y-m-d H:i:s', strtotime($request->input('dataIUmid')));
             $dados->startUmid = $data ;
             $data = date('Y-m-d H:i:s', strtotime($request->input('dataFUmid')));
-            $dados->stopTemp = $data ;
-            
-            // dd(date('d-m-Y H:i:s', strtotime($request->input('dataITemp'))));
-           
-            // $dados->$stopTemp = date($request->input('dataFTemp'));
-            // $dados->$startUmid = date($request->input('dataITemp'));
-            // $dados->$stopUmid = date($request->input('dataFTemp'));
-            // if($request->has('dataITemp')){
-            //     dd("teste");
-            // }
+            $dados->stopUmid = $data ;
 
             if ($minTemp<$maxTemp) {
                 if ($minTemp>$spTemp || $spTemp>$maxTemp) {
@@ -319,13 +312,26 @@ class ControllerAmbientes extends Controller
         }
     }
 
-    public function controleManual($id, Request $request)
+    public function controleManualAr($id, Request $request)
     {
-        // $dados = ambiente::where('id', $id)->first();
-        $estado = estados::find($id)->first();
-        $estado->statusWeb = 'ligado';
+        $estado = estados::find($id);
+        if($estado->status == 'ligado'){
+            $equipamento = 1;
+            $temperature = 1;
+            $process = new Process(['python', 'sendIR.py', $equipamento,  $temperature]);
+            $process->run();
+            if (!$process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+            echo $process->getOutput();
+        }else if($estado->status == 'desligado'){
+            //  codigo em python para acionar o ar 
+            $estado->status = 'ligado';
+        }
+        $estado->status = "ligado";
         $estado->modo = $request->input('operacao');
         $estado->temp = $request->input('temperatura');
+        $estado->statusWeb = 1;
         $estado->save();
         if (isset($estado)) {
             return redirect()
@@ -338,13 +344,40 @@ class ControllerAmbientes extends Controller
         }
     }
 
+    public function controleManualUmid($id, Request $request)
+    {
+        $estado = estados::find($id);
+        if($estado->status == 'ligado'){
+            //  codigo em python para acionar o ar 
+        }else if($estado->status == 'desligado'){
+            //  codigo em python para acionar o ar 
+            $estado->status = 'ligado';
+        }
+        $estado->status = "ligado";
+        $estado->modo = $request->input('operacao');
+        $estado->temp = $request->input('temperatura');
+        $estado->statusWeb = 1;
+        $estado->save();
+        if (isset($estado)) {
+            return redirect()
+        ->back()
+        ->with('success', 'Controle Manual Realizado');
+        } else {
+            return redirect()
+        ->back()
+        ->with('error', 'Falha ao realizar controle manual');
+        }
+    }
+
+
     public function desligaArManual($id)
     {
-        $ar = ar::where('id_ambiente')->first();
-        $ar->statusWeb = false;
-        $ar->save();
-        if (isset($ar)) {
-            return view('/edit/ambiente/'.$id)->back()
+        $estado = estados::where('id_ambiente')->first();
+        $estado->status = "desligado";
+        $estado->save();
+        print('desligado');
+        if (isset($estado)) {
+            return redirect()->back()
         ->with('success', 'Ar desligado manualmente');
         } else {
             return redirect('/edit/ambiente/'.$id)->
@@ -352,4 +385,19 @@ class ControllerAmbientes extends Controller
         ->with('error', 'Falha ao desligar ar remotamente');
         }
     }
+    public function desligaUmidificadorManual($id)
+    {
+        $estado = estados::where('id_ambiente')->last();
+        $estado->status = "desligado";
+        $estado->save();
+        if (isset($estado)) {
+            return view('/edit/ambiente/'.$id)->back()
+            ->with('success', 'Umidificador desligado manualmente');
+        } else {
+            return redirect('/edit/ambiente/'.$id)->
+          back()
+          ->with('error', 'Falha ao desligar umidificador');
+        }
+    }
+    
 }
