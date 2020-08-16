@@ -6,11 +6,11 @@
 import serial #BIBLIOTECA SERIAL
 import sys #BIBLIOCA SISTEMA
 import string #BIBLIOTECA MANIPULACAO STRING
-import time #BIBLIOTECA MANIPULACAO TEMPO 
+import time #BIBLIOTECA MANIPULACAO TEMPO
 import mysql.connector as mariadb #BIBLIOTECA PARA CONEXAO COM O BANCO
 import datetime #BIBLIOTECA PARA MANIPULACAO VARIAVEL DATETIME
 import I2C_LCD_driver #BIBLIOTECA LCD
-import smtplib 
+import smtplib
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from email.mime.text import MIMEText #BIBLIOTECA EMAIL
@@ -44,7 +44,6 @@ id_exterior = 4
 #ULTIMO ENVIO EMAIL
 ts = time.time()
 ultimoEmail = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
- 
 
 #QUERYS DE CONSULTA E INSERSAO
 sql_lab = 'INSERT INTO laboratorios(spTemp, spUmid, temp, umid, eTemp, eUmid, minTemp, maxTemp, minUmid, maxUmid, energia, created_at) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s , null, %s)'
@@ -72,12 +71,12 @@ def conecta_banco():
 			print('tentandor conectar no banco...')
 			conecta = mariadb_connection = mariadb.connect(user='lab', password='labensaios', database='labEnsaios')
 			cursor = mariadb_connection.cursor()
-			# mylcd.lcd_display_string("Database Conectado ",1)
+			mylcd.lcd_display_string("Database Conectado ",1)
 			print('Banco conectado')
-			# time.sleep()
+			time.sleep()
 		except mariadb.connector.Error as err:
 			print("Erro MariaDB: {}".format(err))
-			# mylcd.lcd_display_string("Erro Database ",1)
+			mylcd.lcd_display_string("Erro Database ",1)
 			print('AVISO: Erro ao conectar-se com o banco')
 			time.sleep(1)
 	return conecta, cursor, mariadb_connection
@@ -89,13 +88,13 @@ def conecta_arduino():
 		try:
 			print('conectando arduino....')
 			ser = serial.Serial("/dev/ttyUSB0", 9600)
-			# mylcd.lcd_display_string("Arduino Conectado ",2)
+			mylcd.lcd_display_string("Arduino Conectado ",2)
 			print('Arduino Conectado')
 			# time.sleep(1)
-			# mylcd.lcd_display_string("Iniciando Sistema", 3)
+			mylcd.lcd_display_string("Iniciando Sistema", 3)
 			# time.sleep(1)
 		except:
-			# mylcd.lcd_display_string("Erro Arduino ",2)
+			mylcd.lcd_display_string("Erro Arduino ",2)
 			print('Erro Conexao USB - Arduino')
 			time.sleep(1)
 	return ser
